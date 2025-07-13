@@ -1,0 +1,44 @@
+@import url(https://fonts.googleapis.com/css?family=Urbanist:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: #141414;
+  font-family: "Urbanist", sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+@layer utils {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+}
+
+@keyframes pulseBlur {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.pulse-blur {
+  animation: pulseBlur 5s ease-in-out infinite;
+}
+
+@layer components {
+  .contact-form-1 {
+    @apply flex flex-col gap-[18px] w-full xl:col-span-1 md:col-span-2 col-span-1;
+  }
+  .contact-form-2 {
+    @apply flex flex-col gap-[16px] xl:col-span-1 md:col-span-2 col-span-1;
+  }
+}
