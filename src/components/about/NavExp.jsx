@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import Title from "./components/Title";
-import { navExpItems } from "../../constants";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useState } from "react";
+
 import clsx from "clsx";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+
+import { navExpItems } from "../../constants";
+
+import Title from "./components/Title";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const NavExp = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -15,18 +24,59 @@ const NavExp = () => {
     setActiveIndex((prev) => (prev === navExpItems.length - 1 ? 0 : prev + 1));
   };
 
+  useGSAP(() => {
+    gsap.from(".navExp_title", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".navExp_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".navExp_card", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".navExp_card",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+    gsap.from(".navExp_pagination", {
+      opacity: 0,
+      duration: 3,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".navExp_pagination",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+  });
   return (
     <section id="ourItWorks">
       <div className="container mx-auto flex flex-col justify-between md:pb-[150px] pb-[100px] gap-[80px] px-5 sm:px-0">
-        <Title
-          title="Navigating the Estatein Experience"
-          text="At Estatein, we've designed a straightforward process to help you find and purchase your dream property with ease. Here's a step-by-step guide to how it all works."
-        />
+        {/* title */}
+        <div className="navExp_title">
+          <Title
+            title="Navigating the Estatein Experience"
+            text="At Estatein, we've designed a straightforward process to help you find and purchase your dream property with ease. Here's a step-by-step guide to how it all works."
+          />
+        </div>
 
-        {/* Desktop view */}
+        {/* desktop view */}
         <div className="hidden md:grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[70px]">
           {navExpItems.map((navExpItem, index) => (
-            <div key={index} className="flex flex-col justify-center h-full">
+            <div key={index} className="flex flex-col justify-center h-full navExp_card">
               <div className="border-l border-purple60 flex items-center">
                 <div className="px-[20px] py-[16px]">
                   <p className="text-[20px] text-white font-medium">
@@ -47,8 +97,8 @@ const NavExp = () => {
           ))}
         </div>
 
-        {/* Mobile view */}
-        <div className="md:hidden flex flex-col items-center gap-[40px]">
+        {/* mobile view */}
+        <div className="md:hidden flex flex-col items-center gap-[40px] navExp_card">
           <div className="flex flex-col justify-center h-full w-full max-w-[500px]">
             <div className="border-l border-purple60 flex items-center">
               <div className="px-[20px] py-[16px]">
@@ -69,8 +119,8 @@ const NavExp = () => {
           </div>
         </div>
 
-        {/* Pagination & arrows */}
-        <div className="flex items-center justify-between border-t-[1px] border-grey15 py-8">
+        {/* pagination */}
+        <div className="flex items-center justify-between border-t-[1px] border-grey15 py-8 navExp_pagination">
           <h1 className="2xl:text-xl lg:text-[16px] sm:text-[14px] text-xl text-white font-medium">
             {String(activeIndex + 1).padStart(2, "0")}{" "}
             <strong className="text-grey60 font-medium">
@@ -96,7 +146,9 @@ const NavExp = () => {
               onClick={nextItem}
               className={clsx(
                 "border-[1px] border-grey15 2xl:p-[14px] xl:p-[10px] lg:p-[8px] md:p-[7px] p-[10px] rounded-full",
-                activeIndex === navExpItems.length - 1 ? "bg-grey08" : "bg-grey10"
+                activeIndex === navExpItems.length - 1
+                  ? "bg-grey08"
+                  : "bg-grey10"
               )}
             >
               <IoIosArrowForward

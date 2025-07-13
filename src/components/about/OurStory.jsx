@@ -1,13 +1,32 @@
-import { homeHeroItems } from "../../constants";
-
 import { useState } from "react";
 import clsx from "clsx";
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+import { homeHeroItems } from "../../constants";
 
 import abstarct from "/images/aboutStory/abstract.svg";
 import OurStoryExperience from "./components/ourStoryModels/OurStoryExperience";
 import Title from "./components/Title";
 
 const OurStory = () => {
+  useGSAP(() => {
+    gsap.from(".left-content", {
+      opacity: 0,
+      x: -100,
+      duration: 1.8,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+    gsap.from(".rigth-content", {
+      opacity: 0,
+      x: 100,
+      duration: 1.8,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+  });
   const [isGrabbing, setIsGrabbing] = useState(false);
   return (
     <section id="ourStory" className="relative z-10 overflow-hidden">
@@ -15,7 +34,7 @@ const OurStory = () => {
         {/* content */}
         <div className="container mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between md:pb-[150px] pb-[100px] md:pt-[100px] pt-[40px] sm:gap-[30px] px-5 sm:px-0 md:gap-0">
           {/* left */}
-          <div className="md:w-[45%] translate-y-10 flex flex-col lg:gap-[60px] md:gap-[45px] sm:gap-[30px] gap-[45px] sm:py-10 sm:pb-12 pb-14 md:pt-14 sm:px-0  px-2">
+          <div className="md:w-[45%] translate-y-10 flex flex-col lg:gap-[60px] md:gap-[45px] sm:gap-[30px] gap-[45px] sm:py-10 sm:pb-12 pb-14 md:pt-14 sm:px-0  px-2 left-content">
             <Title
               title="Our Journey"
               text="Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary. Over the years, we've expanded our reach, forged valuable partnerships, and gained the trust of countless clients."
@@ -47,8 +66,9 @@ const OurStory = () => {
               ))}
             </div>
           </div>
+
           {/* model */}
-          <div className="relative md:w-[45%] w-full z-20 rounded-lg">
+          <div className="relative md:w-[45%] w-full z-20 rounded-lg rigth-content">
             <div
               className={clsx(
                 "relative w-full xl:h-[500px] lg:h-[400px] md:h-[350px] rounded-lg border border-grey15 sm:border-l overflow-hidden",

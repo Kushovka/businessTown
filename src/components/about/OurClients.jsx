@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import clsx from "clsx";
-import { ourClientsItems } from "../../constants";
-import Title from "./components/Title";
+import { useState } from "react";
 
+import clsx from "clsx";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+
+import { ourClientsItems } from "../../constants";
+
+import Title from "./components/Title";
 import icon1 from "/images/aboutOurClients/icon1.svg";
 import icon2 from "/images/aboutOurClients/icon2.svg";
 
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+gsap.registerPlugin(ScrollTrigger);
 
 const OurClients = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,14 +29,57 @@ const OurClients = () => {
 
   const currentClient = ourClientsItems[activeIndex];
 
+  useGSAP(() => {
+    gsap.from(".ourClients_title", {
+      opacity: 0,
+      x: -100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".ourClients_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".ourClients_card", {
+      opacity: 0,
+      x: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".ourClients_card",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+    gsap.from(".ourClients_pagination", {
+      opacity: 0,
+      duration: 3,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".ourClients_pagination",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+  });
+
   return (
     <section id="ourClients">
       <div className="container mx-auto flex flex-col justify-between md:pb-[150px] pb-[100px] gap-[80px] px-5 sm:px-0">
-        <Title
-          title="Our Valued Clients"
-          text="At Estatein, we have had the privilege of working with a diverse range of clients across various industries. Here are some of the clients we've had the pleasure of serving"
-        />
-        <div className="max-w-[600px] mx-auto">
+        {/* title */}
+        <div className="ourClients_title">
+          <Title
+            title="Our Valued Clients"
+            text="At Estatein, we have had the privilege of working with a diverse range of clients across various industries. Here are some of the clients we've had the pleasure of serving"
+          />
+        </div>
+
+        {/* card */}
+        <div className="w-full mx-auto ourClients_card">
           <div className="border border-grey15 p-[50px] rounded-[12px] shadow-[0_0_0_10px_#191919] space-y-[40px]">
             {/* Header */}
             <div className="flex flex-col sm:flex-row gap-[20px] sm:gap-0 sm:items-center justify-between">
@@ -47,8 +97,8 @@ const OurClients = () => {
             </div>
             {/* Domain & Category */}
             <div className="flex xl:justify-center flex-col sm:flex-row gap-[20px] sm:gap-0 justify-between relative">
-              <div className="lg:w-1/3 xl:w-1/2">
-                <div className="flex gap-[6px]">
+              <div className="lg:w-1/3 xl:w-1/2  sm:items-center sm:flex sm:flex-col">
+                <div className="flex gap-[6px] ">
                   <img src={icon1} className="w-[24px]" alt="icon" />
                   <h1 className="xl:text-[18px] lg:text-[16px] text-[18px] text-grey60 font-medium">
                     Domain
@@ -59,7 +109,7 @@ const OurClients = () => {
                 </h1>
               </div>
               <div className="w-[1px] h-full lg:absolute hidden top-0 xl:left-[45%] lg:left-[40%] bg-grey15" />
-              <div className="w-1/2">
+              <div className="w-1/2  sm:items-center sm:flex sm:flex-col">
                 <div className="flex gap-[6px]">
                   <img src={icon2} className="w-[24px]" alt="" />
                   <h1 className="xl:text-[18px] lg:text-[16px] text-[18px] text-grey60 font-medium">
@@ -82,8 +132,9 @@ const OurClients = () => {
             </div>
           </div>
         </div>
-        {/* Pagination controls */}
-        <div className="flex items-center justify-between border-t-[1px] border-grey15 py-8 w-full mx-auto">
+
+        {/* pagination */}
+        <div className="flex items-center justify-between border-t-[1px] border-grey15 py-8 w-full mx-auto ourClients_pagination">
           <div>
             <h1 className="2xl:text-xl lg:text-[16px] sm:text-[14px] text-xl text-white font-medium">
               {String(activeIndex + 1).padStart(2, "0")}{" "}
@@ -117,7 +168,9 @@ const OurClients = () => {
               <IoIosArrowForward
                 className={clsx(
                   "text-center 2xl:size-[30px] xl:size-[24px] lg:size-[20px] sm:size-[18px] size-[24px]",
-                  activeIndex === totalItems - 1 ? "text-white/50" : "text-white"
+                  activeIndex === totalItems - 1
+                    ? "text-white/50"
+                    : "text-white"
                 )}
               />
             </button>
