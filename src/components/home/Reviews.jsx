@@ -1,14 +1,61 @@
+import { useState, useEffect } from "react";
+
 import clsx from "clsx";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+
 import { homeReviewsItems } from "../../constants";
-import { useState, useEffect } from "react";
 
 import StarRating from "./components/StarRating";
 import Title from "./components/Title";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Reviews = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
+
+  useGSAP(() => {
+    gsap.from(".reviews_title", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".reviews_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".reviews_card", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: ".reviews_card",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+    gsap.from(".reviews_pagination", {
+      opacity: 0,
+      duration: 3,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".reviews_pagination",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+  });
 
   useEffect(() => {
     const updateCardsPerPage = () => {
@@ -34,16 +81,21 @@ const Reviews = () => {
   return (
     <section id="testimonial">
       <div className="container mx-auto pt-10 px-5">
-        <Title
-          title="What Our Clients Say"
-          text="Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs."
-          textBtn="View All Testimonials"
-        />
+        {/* title */}
+        <div className="reviews_title">
+          <Title
+            title="What Our Clients Say"
+            text="Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs."
+            textBtn="View All Testimonials"
+          />
+        </div>
+
+        {/* card */}
         <div className="flex items-center justify-center gap-[30px] pb-[50px] min-h-[400px]">
           {visibleItems.map((item, i) => (
             <div
               key={i}
-              className="bg-grey08 border-[1px] border-grey15 rounded-[12px] p-[30px] space-y-[40px] sm:min-h-[350px] md:h-full"
+              className="bg-grey08 border-[1px] border-grey15 rounded-[12px] p-[30px] space-y-[40px] sm:min-h-[350px] md:h-full reviews_card"
             >
               <div>
                 <StarRating rating={5} />
@@ -79,7 +131,8 @@ const Reviews = () => {
           ))}
         </div>
 
-        <div className="flex items-center justify-between border-t-[1px] border-grey15 py-8">
+        {/* pagination */}
+        <div className="flex items-center justify-between border-t-[1px] border-grey15 py-8 reviews_pagination">
           <div>
             <h1 className="2xl:text-xl lg:text-[16px] sm:text-[14px] text-xl text-white font-medium">
               {String(currentPage + 1).padStart(2, "0")}{" "}

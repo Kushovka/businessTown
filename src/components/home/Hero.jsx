@@ -1,6 +1,10 @@
 import { useState } from "react";
+
 import clsx from "clsx";
 import { GoArrowUpRight } from "react-icons/go";
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 import { homeHeroItems } from "../../constants";
 import HeroExperience from "./components/HeroModel/HeroExperience";
@@ -12,19 +16,42 @@ import Button2 from "../Button2";
 const Hero = () => {
   const [isGrabbing, setIsGrabbing] = useState(false);
 
+  useGSAP(() => {
+    gsap.from(".left-content", {
+      opacity: 0,
+      x: -100,
+      duration: 1.8,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+    gsap.from(".rigth-content", {
+      opacity: 0,
+      x: 100,
+      duration: 1.8,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+    gsap.from(".center-content", {
+      opacity: 0,
+      duration: 5,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+  });
+
   return (
     <section id="hero" className="relative z-10 overflow-hidden">
       <div>
         {/* content */}
         <div className="container mx-auto relative z-10 flex flex-col-reverse sm:flex-row items-center justify-between md:px-4 lg:px-8">
           {/* left */}
-          <div className="w-full xl:w-1/3 md:w-[45%] sm:w-[40%] translate-y-10 flex flex-col lg:gap-[60px] md:gap-[45px] sm:gap-[30px] gap-[45px] sm:py-10 sm:pb-12 pb-14 md:pt-14 sm:px-0  px-2">
+          <div className="w-full xl:w-1/3 md:w-[45%] sm:w-[40%] translate-y-10 flex flex-col lg:gap-[60px] md:gap-[45px] sm:gap-[30px] gap-[45px] sm:py-10 sm:pb-12 pb-14 md:pt-14 sm:px-0  px-2 left-content">
             <Header />
             <Actions />
             <Stats />
           </div>
           {/* model */}
-          <div className="sm:w-1/2 w-full z-20 py-4 px-4 rounded-lg">
+          <div className="sm:w-1/2 w-full z-20 py-4 px-4 rounded-lg rigth-content">
             <div
               className={clsx(
                 "w-full sm:h-[700px] h-[400px] lg:translate-x-[40px] md:translate-x-[30px] sm:translate-x-[20px] rounded-lg border border-grey30 sm:border-l sm:border-grey30 overflow-hidden",
@@ -103,7 +130,7 @@ const CircleButton = () => {
     <a
       href="#features"
       className={clsx(
-        "absolute z-50 sm:bottom-12 sm:left-1/2 left-[0%] sm:top-[15%] top-[25%] transform sm:-translate-x-[28%] -translate-y-[20%] bg-grey08 rounded-full border border-grey15 group cursor-pointer",
+        "absolute z-50 sm:bottom-12 sm:left-1/2 left-[0%] sm:top-[15%] top-[25%] transform sm:-translate-x-[28%] -translate-y-[20%] bg-grey08 rounded-full border border-grey15 group cursor-pointer center-content",
         circleSize
       )}
     >
