@@ -38,7 +38,7 @@ const Featured = () => {
       y: 100,
       duration: 1,
       ease: "power4.out",
-      stagger: 0.15,
+      stagger: 0.2,
       scrollTrigger: {
         trigger: ".featured_card",
         start: "top 90%",

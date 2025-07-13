@@ -36,11 +36,11 @@ const Reviews = () => {
       y: 100,
       duration: 1,
       ease: "power4.out",
-      stagger: 0.15,
+      stagger: 0.2,
       scrollTrigger: {
         trigger: ".reviews_card",
         start: "top 90%",
-        end: "bottom 80%",
+        end: "bottom 40%",
         scrub: true,
       },
     });

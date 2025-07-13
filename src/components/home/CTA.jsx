@@ -10,7 +10,6 @@ import abstract2 from "/images/homeCTA/abstract2.svg";
 gsap.registerPlugin(ScrollTrigger);
 
 const CTA = () => {
-
   useGSAP(() => {
     gsap.from(".home_CTA", {
       opacity: 0,
@@ -20,11 +19,10 @@ const CTA = () => {
       scrollTrigger: {
         trigger: ".home_CTA",
         start: "top 90%",
-        end: "bottom 20%",
+        end: "bottom 40%",
         scrub: true,
       },
     });
-
   });
   return (
     <section className="relative z-0 border-t border-b border-grey15 overflow-hidden home_CTA">
