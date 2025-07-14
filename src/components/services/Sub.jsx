@@ -1,14 +1,27 @@
-import { homeSubItems } from "../../constants";
-
 import { GoArrowUpRight } from "react-icons/go";
 
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+import { homeSubItems } from "../../constants";
+
 const Sub = () => {
+  useGSAP(() => {
+    gsap.from(".services_sub", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.2,
+    });
+  });
   return (
     <section>
       <div className="max-w-full mx-auto md:p-0 sm:p-10 md:pb-[150px] sm:pb-[100px] pb-[50px] pt-[50px] px-[25px]">
         <div className=" grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-6 sm:gap-4 gap-2 items-center justify-between bg-grey08 border-[1px] border-grey15 rounded-[12px] md:rounded-none lg:px-5 lg:py-5 md:px-2 md:py-2 sm:py-5 sm:px-5 py-3 px-3 shadow-[0_0_0_10px_#191919]">
           {homeSubItems.map((item, index) => (
-            <div key={index}>
+            <div key={index} className="services_sub">
               <div className="relative bg-grey10 border-[1px] border-grey15 flex flex-col items-center justify-center 2xl:py-[40px] xl:py-[30px] 2xl:px-[10px] xl:px-[7px] lg:py-[20px] lg:px-[5px] md:py-[12px] md:px-[8px] sm:py-[10px] sm:px-[6px] py-[12px] px-[8px] rounded-[12px]  gap-5 cursor-pointer  group">
                 <GoArrowUpRight className="absolute 2xl:size-8 xl:size-[26px] sm:size-[24px] size-[20px] top-2 right-2 text-grey30 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 group-hover:text-white" />
                 <div className="flex flex-col items-center justify-center gap-5">

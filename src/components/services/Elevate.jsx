@@ -1,8 +1,23 @@
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 const Elevate = () => {
+  useGSAP(() => {
+    gsap.from(".elevate-content", {
+      opacity: 0,
+      y: 100,
+      duration: 1.8,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+  });
   return (
-    <section  id="valuation" className="relative border-b border-grey15 overflow-hidden">
+    <section
+      id="valuation"
+      className="relative border-b border-grey15 overflow-hidden"
+    >
       <div className="absolute top-0 left-0 w-[100px] h-full bg-white blur-[200px] rounded-full opacity-50 pointer-events-none z-0 pulse-blur" />
-      <div className="container mx-auto flex flex-col justify-between md:pt-[150px] md:pb-[150px] sm:pt-[100px] sm:pb-[100px] pb-[50px] pt-[50px] px-[25px]">
+      <div className="container mx-auto flex flex-col justify-between md:pt-[150px] md:pb-[150px] sm:pt-[100px] sm:pb-[100px] pb-[50px] pt-[50px] px-[25px] elevate-content">
         <div className="sm:w-[75%] w-full">
           <h1 className="md:text-[48px] sm:text-[34px] text-[30px] text-white font-semibold">
             Elevate Your Real Estate Experience

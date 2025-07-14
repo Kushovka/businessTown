@@ -1,11 +1,34 @@
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 import Button2 from "../Button2";
 
 import abstract1 from "/images/homeCTA/abstract1.svg";
 import abstract2 from "/images/homeCTA/abstract2.svg";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const CTA = () => {
+  useGSAP(() => {
+    gsap.from(".sevices_CTA", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".sevices_CTA",
+        start: "top 90%",
+        end: "bottom 40%",
+        scrub: true,
+      },
+    });
+  });
   return (
-    <section id="property" className="relative z-0 border-t border-b border-grey15 overflow-hidden">
+    <section
+      id="property"
+      className="relative z-0 border-t border-b border-grey15 overflow-hidden sevices_CTA"
+    >
       <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between pt-[60px] py-10 sm:py-0 md:px-5">
         <img
           className="absolute sm:w-1/2 w-[80%] z-10 left-0 md:top-0 bottom-0"

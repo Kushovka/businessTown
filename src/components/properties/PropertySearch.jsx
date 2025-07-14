@@ -1,14 +1,24 @@
-import React from "react";
-
 import { SlMagnifier } from "react-icons/sl";
-import { propertySearchItems } from "../../constants";
-
 import { IoIosArrowDown } from "react-icons/io";
 
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+import { propertySearchItems } from "../../constants";
+
 const PropertySearch = () => {
+  useGSAP(() => {
+    gsap.from(".propertySearch-content", {
+      opacity: 0,
+      y: 100,
+      duration: 1.8,
+      ease: "power4.out",
+      delay: 0.2,
+    });
+  });
   return (
     <section>
-      <div className="container mx-auto flex flex-col justify-between md:-translate-y-[50px] sm:-translate-y-[20px] -translate-y-[30px] md:pb-[150px] sm:pb-[100px] pb-[50px] px-[15px]">
+      <div className="container mx-auto flex flex-col justify-between md:-translate-y-[50px] sm:-translate-y-[20px] -translate-y-[30px] md:pb-[150px] sm:pb-[100px] pb-[50px] px-[15px] propertySearch-content">
         <div className="flex flex-col md:gap-[20px] gap-[30px]">
           {/*  */}
           <div className="flex items-center justify-center">
@@ -44,7 +54,7 @@ const PropertySearch = () => {
                     />
                     <div className="w-[1px] h-[24px] bg-grey15" />
                     <h1 className="xl:text-[18px] lg:text-[16px] md:text-[14px] sm:text-[18px] text-grey60 font-medium">
-                      {propertySearchItem.title} 
+                      {propertySearchItem.title}
                     </h1>
                   </div>
                   <div className="bg-grey10 xl:p-[4px] lg:p-[2px] rounded-full">

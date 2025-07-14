@@ -1,14 +1,48 @@
-import Title from "./components/Title";
-import Button1 from "../Button1";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
 
-import abstract from "/images/servicesSmart/abstract.png";
 import { smartItems } from "../../constants";
 
+import Title from "./components/Title";
+import Button1 from "../Button1";
+import abstract from "/images/servicesSmart/abstract.png";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Smart = () => {
+  useGSAP(() => {
+    gsap.from(".smart_title", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".smart_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".smart_card", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".smart_card",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+  });
   return (
     <section id="closing">
       <div className="container mx-auto flex flex-col lg:flex-row md:pb-[150px] sm:pb-[100px] pb-[50px] px-[25px] lg:gap-[80px] md:gap-[30px] sm:gap-[50px] gap-[35px]">
-        <div className="flex lg:flex-col flex-col lg:w-1/2 md:w-full  gap-[50px] self-start">
+        {/* title + sub */}
+        <div className="flex lg:flex-col flex-col lg:w-1/2 md:w-full  gap-[50px] self-start smart_title">
           <Title
             title="Smart Investments, Informed Decisions"
             text="Building a real estate portfolio requires a strategic approach. Estatein's Investment Advisory Service empowers you to make smart investments and informed decisions."
@@ -32,11 +66,13 @@ const Smart = () => {
             </div>
           </div>
         </div>
+
+        {/* card */}
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-[10px] w-full h-full auto-rows-fr rounded-[12px] bg-[#191919] shadow-[0_0_0_10px_#191919]">
           {smartItems.map((smartItem, index) => (
             <div
               key={index}
-              className="flex flex-col gap-[20px] p-[30px] md:p-[50px] border border-grey15 rounded-[12px] bg-grey08 w-full"
+              className="flex flex-col gap-[20px] p-[30px] md:p-[50px] border border-grey15 rounded-[12px] bg-grey08 w-full smart_card"
             >
               <div className="flex items-center gap-[20px] w-full">
                 <img

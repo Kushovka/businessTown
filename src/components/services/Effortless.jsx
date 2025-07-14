@@ -1,21 +1,58 @@
-import Title from "./components/Title";
-import { effortlessItems, unlockItems } from "../../constants";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+
+import { effortlessItems } from "../../constants";
 
 import abstarct from "/images/servicesUnlock/abstract.png";
+import Title from "./components/Title";
 import Button1 from "../Button1";
-import clsx from "clsx";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Effortless = () => {
+  useGSAP(() => {
+    gsap.from(".effortless_title", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".effortless_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".effortless_card", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".effortless_card",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+  });
   return (
     <section id="negotiation">
       <div className="container mx-auto flex flex-col justify-between md:pb-[150px] sm:pb-[100px] pb-[50px] px-[25px] lg:gap-[80px] md:gap-[50px] sm:gap-[30px] gap-[15px]">
-        <Title
-          title="Effortless Property Management"
-          text="Owning a property should be a pleasure, not a hassle. Estatein's Property Management Service takes the stress out of property ownership, offering comprehensive solutions tailored to your needs. Explore the categories below to see how we can make property management effortless for you"
-        />
+        {/* title */}
+        <div className="effortless_title">
+          <Title
+            title="Effortless Property Management"
+            text="Owning a property should be a pleasure, not a hassle. Estatein's Property Management Service takes the stress out of property ownership, offering comprehensive solutions tailored to your needs. Explore the categories below to see how we can make property management effortless for you"
+          />
+        </div>
+
+        {/* card */}
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-[30px] gap-[15px]">
           {effortlessItems.map((effortlessItem, index) => (
-            <div key={index} className="h-full">
+            <div key={index} className="h-full effortless_card">
               <div className="flex flex-col border border-grey15 rounded-[12px] p-[50px] gap-[30px] h-full">
                 <div className="flex items-center gap-[20px]">
                   <img

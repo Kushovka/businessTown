@@ -13,7 +13,7 @@ import Button2 from "../Button2";
 import Title from "./components/Title";
 
 gsap.registerPlugin(ScrollTrigger);
-
+ 
 const Featured = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);

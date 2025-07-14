@@ -1,21 +1,59 @@
-import React from "react";
-import Title from "./components/Title";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+
 import { unlockItems } from "../../constants";
 
 import abstarct from "/images/servicesUnlock/abstract.png";
+
+import Title from "./components/Title";
 import Button1 from "../Button1";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Unlock = () => {
+  useGSAP(() => {
+    gsap.from(".unlock_title", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".unlock_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".unlock_card", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".unlock_card",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+  });
   return (
     <section id="strategic">
       <div className="container mx-auto flex flex-col justify-between md:pb-[150px] sm:pb-[100px] pb-[50px] px-[25px] lg:gap-[80px] md:gap-[50px] sm:gap-[30px] gap-[15px]">
-        <Title
-          title="Unlock Property Value"
-          text="Selling your property should be a rewarding experience, and at Estatein, we make sure it is. Our Property Selling Service is designed to maximize the value of your property, ensuring you get the best deal possible. Explore the categories below to see how we can help you at every step of your selling journey"
-        />
+        {/* title */}
+        <div className="unlock_title">
+          <Title
+            title="Unlock Property Value"
+            text="Selling your property should be a rewarding experience, and at Estatein, we make sure it is. Our Property Selling Service is designed to maximize the value of your property, ensuring you get the best deal possible. Explore the categories below to see how we can help you at every step of your selling journey"
+          />
+        </div>
+
+        {/* card */}
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-[30px] gap-[15px]">
           {unlockItems.map((unlockItem, index) => (
-            <div key={index} className="h-full">
+            <div key={index} className="h-full unlock_card">
               <div className="flex flex-col border border-grey15 rounded-[12px] p-[50px] gap-[30px] h-full">
                 <div className="flex items-center gap-[20px]">
                   <img

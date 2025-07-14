@@ -6,7 +6,7 @@ import ContactForm from "../components/properties/ContactForm";
 import CTA from "../components/properties/CTA";
 
 const Properties = () => {
-  return (
+  return ( 
     <main>
       <Property />
       <PropertySearch />

@@ -1,23 +1,63 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import clsx from "clsx";
+
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+
 import Title from "./components/Title";
+import Button2 from "../Button2";
 
 import icon1 from "/images/propertiesContact/icon1.svg";
 import icon2 from "/images/propertiesContact/icon2.svg";
-import clsx from "clsx";
-import Button2 from "../Button2";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ContactForm = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedInput, setSelectedInput] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  useGSAP(() => {
+    gsap.from(".contactForm_title", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".contactForm_title",
+        start: "top 90%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+    gsap.from(".contactForm_form", {
+      opacity: 0,
+      y: 100,
+      duration: 1,
+      ease: "power4.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".contactForm_form",
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+  });
   return (
     <section id="categories">
       <div className="container mx-auto flex flex-col justify-between md:pb-[150px] sm:pb-[100px] pb-[50px] px-[25px] gap-[80px]">
-        <Title
-          title="Let's Make it Happen"
-          text="Ready to take the first step toward your dream property? Fill out the form below, and our real estate wizards will work their magic to find your perfect match. Don't wait; let's embark on this exciting journey together."
-        />
-        <div className="border border-grey15 md:p-[100px] p-[20px] rounded-[12px] space-y-[50px]">
+        {/* title */}
+        <div className="contactForm_title">
+          <Title
+            title="Let's Make it Happen"
+            text="Ready to take the first step toward your dream property? Fill out the form below, and our real estate wizards will work their magic to find your perfect match. Don't wait; let's embark on this exciting journey together."
+          />
+        </div>
+
+        {/* form */}
+        <div className="border border-grey15 md:p-[100px] p-[20px] rounded-[12px] space-y-[50px] contactForm_form">
           {/* 1 */}
           <div className="grid md:grid-cols-4 grid-cols-1 items-center gap-[50px]">
             {/* name */}
